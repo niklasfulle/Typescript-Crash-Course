@@ -1,2 +1,20 @@
 # Typescript-Crash-Course
-Typescript Project to learn Typescript 
+
+## Table of Contents
+
+-   [Description](#description)
+-   [Dependencies](#dependencies)
+-   [Installation](#installation)
+
+## Description
+
+This is a Typescript project that I am using to learn Typescript.
+
+## Dependencies
+
+| Name             | Version | Link                                                   |
+| ---------------- | ------- | ------------------------------------------------------ |
+| Node.js          | 18.16.0 | [Link](https://nodejs.org/en/)                         |
+
+
+## Installation
