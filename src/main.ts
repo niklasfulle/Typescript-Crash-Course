@@ -1,64 +1,89 @@
-let stringArr = ['a', 'b', 'c'];
-let numberArr = ["1", 2, 3];
-let anyArr = [1, "a", true];
+// Type Aliases
+type stringOrNumber = string | number;
 
-stringArr[0] = "A";
-stringArr.push("d");
-
-numberArr[0] = 0;
-numberArr.push("4");
-
-anyArr[0] = false;
-anyArr.push(2);
-anyArr.unshift("b");
-
-let test: string[] = [];
-test.push("a");
-
-// Tuple
-
-let tuple: [string, number, boolean] = ["a", 1, true];
-let mixed = ["a", 1, true];
+type stringOrNumberArray = stringOrNumber[];
 
 
-// objects
-
-let myObj: object;
-myObj = [];
-console.log(typeof myObj);
-
-const person = {
-  name: "John",
-  alive: true
-}
-
-person.name = "Jane";
-
-interface Person {
+type Person = {
   name: string,
   alive: boolean
-  albums: (string | number)[]
+  albums: stringOrNumberArray
 }
 
-let test2: Person = {
-  name: "John",
-  alive: true,
-  albums: [1, "test"]
+type UserId = stringOrNumber;
+
+// Literal Types
+
+let myName: "Niklas";
+
+let userName: "Niklas" | "Hans" | "Gustav";
+userName = "Gustav";
+
+// functions
+
+const add = (a: number, b: number): number => {
+  return a + b;
 }
 
-const greet = (person: Person) => {
-  console.log("Hello", person.name.toLowerCase());
+const logMsg = (msg: any): void => {
+  console.log(msg);
 }
 
-greet(test2);
+logMsg("Hello World");
 
-// Enums
+let subtract = function (a: number, b: number): number {
+  return a - b;
+}
 
-enum Role { ADMIN, USER, READ_ONLY };
+type mathFunction = (a: number, b: number) => number;
+//interface mathFunction { (a: number, b: number): number }
 
-const test3 = {
-  name: "John",
-  alive: true,
-  role: Role.ADMIN
+let multiply: mathFunction = function (a, b) {
+  return a * b;
+}
 
+const addAll = (a: number, b: number, c?: number): number => {
+  if (typeof c === "number") {
+    return a + b + c;
+  }
+  return a + b;
+}
+
+const sumAll = (a: number, b: number, c: number = 2): number => {
+  return a + b + c;
+}
+
+logMsg(addAll(1, 2, 3));
+logMsg(addAll(1, 2));
+
+logMsg(sumAll(1, 3));
+
+// Rest Parameters
+
+const total = (a: number, ...nums: number[]): number => {
+  return a + nums.reduce((prev, curr) => prev + curr);
+}
+
+logMsg(total(1, 2, 3, 4, 5));
+
+// never type
+
+const createError = (errMsg: string): never => {
+  throw new Error(errMsg);
+}
+
+// custom type guard
+const isNumber = (value: any): boolean => {
+  return typeof value === "number" ? true : false;
+}
+
+// use of the never type
+const numberOrString = (value: number | string): string => {
+  if (typeof value === "string") {
+    return "string"
+  }
+  if (isNumber(value)) {
+    return "number"
+  }
+  return createError("Expected string or number");
 }
