@@ -1,89 +1,35 @@
-// Type Aliases
-type stringOrNumber = string | number;
+type One = string;
+type Two = string | number;
+type Three = "hello";
 
-type stringOrNumberArray = stringOrNumber[];
+// convert to more or less specific
+
+let a: One = "hello";
+let b = a as Two;
+let c = a as Three;
+
+let d = <One>"world";
+let e = <string | number>"world";
 
 
-type Person = {
-  name: string,
-  alive: boolean
-  albums: stringOrNumberArray
-}
-
-type UserId = stringOrNumber;
-
-// Literal Types
-
-let myName: "Niklas";
-
-let userName: "Niklas" | "Hans" | "Gustav";
-userName = "Gustav";
-
-// functions
-
-const add = (a: number, b: number): number => {
-  return a + b;
-}
-
-const logMsg = (msg: any): void => {
-  console.log(msg);
-}
-
-logMsg("Hello World");
-
-let subtract = function (a: number, b: number): number {
-  return a - b;
-}
-
-type mathFunction = (a: number, b: number) => number;
-//interface mathFunction { (a: number, b: number): number }
-
-let multiply: mathFunction = function (a, b) {
-  return a * b;
-}
-
-const addAll = (a: number, b: number, c?: number): number => {
-  if (typeof c === "number") {
-    return a + b + c;
+const addOrConcat = (a: number, b: number, c: "add" | "concat"): number | string => {
+  if (c === "add") {
+    return a + b;
+  } else {
+    return "" + a + b
   }
-  return a + b;
 }
 
-const sumAll = (a: number, b: number, c: number = 2): number => {
-  return a + b + c;
-}
+let myVal: string = addOrConcat(1, 2, "concat") as string;
 
-logMsg(addAll(1, 2, 3));
-logMsg(addAll(1, 2));
+// be careful with this because it can lead to runtime errors
+let nextVal: number = addOrConcat(1, 2, "concat") as number;
 
-logMsg(sumAll(1, 3));
+// The DOM
 
-// Rest Parameters
+const img = document.querySelector("img")!  // "!" means that we know it will be there
+const myImg = document.getElementById("#img") as HTMLImageElement;
+const myImg1 = <HTMLImageElement>document.getElementById("#img");
 
-const total = (a: number, ...nums: number[]): number => {
-  return a + nums.reduce((prev, curr) => prev + curr);
-}
-
-logMsg(total(1, 2, 3, 4, 5));
-
-// never type
-
-const createError = (errMsg: string): never => {
-  throw new Error(errMsg);
-}
-
-// custom type guard
-const isNumber = (value: any): boolean => {
-  return typeof value === "number" ? true : false;
-}
-
-// use of the never type
-const numberOrString = (value: number | string): string => {
-  if (typeof value === "string") {
-    return "string"
-  }
-  if (isNumber(value)) {
-    return "number"
-  }
-  return createError("Expected string or number");
-}
+img.src
+myImg.src
