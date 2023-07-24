@@ -26,7 +26,7 @@ function App() {
     const [count, setCount] = useState<number>(0);
     const [users, setUsers] = useState<User[] | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
-
+    setUsers;
     console.log(inputRef?.current);
     console.log(inputRef?.current?.value);
 
@@ -42,6 +42,7 @@ function App() {
     const addTwo = useCallback(
         (e: MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLButtonElement>): void => {
             setCount((prev) => prev + 2);
+            e;
         },
         []
     );
