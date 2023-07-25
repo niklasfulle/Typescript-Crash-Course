@@ -6,8 +6,9 @@ export type ProductType = {
     price: number;
 };
 
-const initState: ProductType[] = [
-    /*{
+const initState: ProductType[] = [];
+/*const initState: ProductType[] = [
+    {
         sku: "item0001",
         name: "Widget",
         price: 9.99,
@@ -21,20 +22,16 @@ const initState: ProductType[] = [
         sku: "item0003",
         name: "Deluxe Widget",
         price: 29.99,
-    },*/
-];
+    },
+];*/
 
-export type UseProductsContextType = {
-    products: ProductType[];
-};
+export type UseProductsContextType = { products: ProductType[] };
 
 const initContextState: UseProductsContextType = { products: [] };
 
 const ProductsContext = createContext<UseProductsContextType>(initContextState);
 
-type ChildrenType = {
-    children?: ReactElement | ReactElement[];
-};
+type ChildrenType = { children?: ReactElement | ReactElement[] };
 
 export const ProductsProvider = ({ children }: ChildrenType): ReactElement => {
     const [products, setProducts] = useState<ProductType[]>(initState);
